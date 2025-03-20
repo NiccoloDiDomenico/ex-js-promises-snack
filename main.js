@@ -3,13 +3,13 @@ function getPostTitle(id) {
     return new Promise((resolve, reject) => {
         fetch(`https://dummyjson.com/posts/${id}`)
             .then(response => response.json())
-            .then(resolve)
+            .then(post => resolve(post.title))
             .catch(reject)
     })
 }
 
 // getPostTitle(3)
-//     .then(data => console.log(data))
+//     .then(title => console.log(title))
 //     .catch(error => console.error(error))
 
 
@@ -22,13 +22,14 @@ function getPost(id) {
                 fetch(`https://dummyjson.com/user/${post.userId}`)
                     .then(response => response.json())
                     .then(user => resolve({ ...post, user }))
+                    .catch(reject)
             })
             .catch(reject)
     })
 }
 
 // getPost(2)
-//     .then(data => console.log(data))
+//     .then(post => console.log(post))
 //     .catch(error => console.error(error))
 
 
@@ -63,6 +64,7 @@ function creaLanciaDado() {
                 const isStuck = Math.random() < 0.2;
 
                 if (isStuck) {
+                    lastDice = null
                     reject('Dado incastrato')
                 } else {
                     if (diceValue === lastDice) {
@@ -79,9 +81,10 @@ function creaLanciaDado() {
 const lanciaUnDado = creaLanciaDado();
 
 // lanciaUnDado()
-//     .then(result => console.log(result))
-//     .catch(error => console.error(error))
-
-// lanciaUnDado()
-//     .then(result => console.log(result))
+//     .then(result => {
+//         console.log(result)
+//         lanciaUnDado()
+//             .then(result => console.log(result))
+//             .catch(error => console.error(error))
+//     })
 //     .catch(error => console.error(error))
