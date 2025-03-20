@@ -31,3 +31,57 @@ function getPost(id) {
 //     .then(data => console.log(data))
 //     .catch(error => console.error(error))
 
+
+// Snack 2
+function lanciaDado() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const diceValue = Math.floor(Math.random() * 6) + 1;
+            const isStuck = Math.random()
+            if (isStuck < 0.2) {
+                reject('Dado incastrato')
+            } else {
+                resolve(`Dado uscito: ${diceValue}`)
+            }
+        }, 3000)
+    })
+}
+
+// lanciaDado()
+//     .then(result => console.log(result))
+//     .catch(error => console.error(error))
+
+
+// Snack 2 (Bonus)
+function creaLanciaDado() {
+    let lastDice = null
+
+    return () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const diceValue = Math.floor(Math.random() * 6) + 1;
+                const isStuck = Math.random() < 0.2;
+
+                if (isStuck) {
+                    reject('Dado incastrato')
+                } else {
+                    if (diceValue === lastDice) {
+                        console.log('Incredibile!');
+                    }
+                    lastDice = diceValue
+                    resolve(`Dado uscito: ${diceValue}`)
+                }
+            }, 3000)
+        })
+    }
+}
+
+const lanciaUnDado = creaLanciaDado();
+
+// lanciaUnDado()
+//     .then(result => console.log(result))
+//     .catch(error => console.error(error))
+
+// lanciaUnDado()
+//     .then(result => console.log(result))
+//     .catch(error => console.error(error))
